@@ -1,6 +1,13 @@
 # beauty-deals-demo
 
-## Run the backend
+## Get started
+Open up a ternimal window, go to the directory where you want to put the project code, and run:
+```
+$ git clone https://github.com/beauty-deals/beauty-deals-demo.git
+$ cd beauty-deals-demo
+```
+
+## Run the backend with Spring Boot
 In a terminal window, start the application with:
 ```
 $ mvn spring-boot:run 
@@ -21,13 +28,16 @@ Hello, the time at the server is now Thu Nov 05 09:38:19 CEST 2020
 ```
 We now have a rest service in Spring Boot up and running!
 
-## Run the React
-Now let's start the frontend. Go to a new terminal window and change to /fontend:
+## Run the frontend with React
+Now let's start the frontend. Go to a new terminal window and change to /frontend:
 ```
 $ cd frontend/
 ```
 Then:
 ```
+$ npm install
+
+[...]
 $ npm start
 
 [...]
@@ -45,4 +55,4 @@ This will open a web browser on your desktop, and it should display something li
 
 <img width="1042" alt="petclinic-screenshot" src="https://github.com/kantega/react-and-spring/raw/master/frontend.png">
 
-
+Success! We now have a React frontend that talks to our Spring Boot backend. 

@@ -56,3 +56,32 @@ This will open a web browser on your desktop, and it should display something li
 <img width="1042" alt="petclinic-screenshot" src="https://github.com/kantega/react-and-spring/raw/master/frontend.png">
 
 Success! We now have a React frontend that talks to our Spring Boot backend. 
+
+## Datebase related logic
+
+Currently, for searching, we only need to find the product linked to available URL.
+Users will see those saved deals by searching products.Therefore, we can get access to the products using the URL provided by MakeUp API.
+
+We need two kinds of table here.
+
+```
+Table1 URL_ProductID (
+	URL, VARCHAR(100) NOT NULL,
+	product_id, INT NOT NULL,
+	PRIMARY KEY(URL)
+)
+```
+
+Each product will have a table for its related deals
+
+```
+Table 2 Product_Deal (
+	product_id, INT NOT NULL,
+	discount_price, VARCHAR(10) NOT NULL,
+        date, DATE,
+	seller, VARCHAR(20) NOT NULL,
+	PRIMARY KEY(product_id)
+)
+```
+
+For comments, we can process them as the same way we process deals.

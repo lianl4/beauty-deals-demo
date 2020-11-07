@@ -1,5 +1,10 @@
 # beauty-deals-demo
 
+## Demo
+The newest version of Beauty Deals:
+
+https://beauty-deals.herokuapp.com/
+
 ## Get started
 Open up a ternimal window, go to the directory where you want to put the project code, and run:
 ```

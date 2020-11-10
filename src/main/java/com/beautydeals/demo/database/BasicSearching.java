@@ -3,6 +3,7 @@ package com.beautydeals.demo.database;
 import java.sql.*;
 
 public class BasicSearching {
+    private static String tbl = "product_tbl";
     private static String drv = "com.mysql.cj.jdbc.Driver";
     private static String url = "jdbc:mysql://127.0.0.1:3306/BEAUTYDEALS";
     private static String usr = "root";
@@ -10,13 +11,11 @@ public class BasicSearching {
 
     public static void testConnection(){
         int productID = 740;
-        String productTable = productID + "_tbl";
 
-        String sql="select * from " + productTable;
+        String sql="select * from product_tbl where product_id =" + productID;
         try{
             Class.forName(drv);
             Connection conn = DriverManager.getConnection(url,usr,pwd);
-            System.out.println("Connection Succeed");
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(sql);
 

@@ -1,5 +1,10 @@
 # beauty-deals-demo
 
+## Demo
+The newest version of Beauty Deals:
+
+https://beauty-deals.herokuapp.com/
+
 ## Get started
 Open up a ternimal window, go to the directory where you want to put the project code, and run:
 ```
@@ -53,7 +58,7 @@ To create a production build, use npm run build.
 ```
 This will open a web browser on your desktop, and it should display something like this:
 
-<img width="1042" alt="petclinic-screenshot" src="https://github.com/kantega/react-and-spring/raw/master/frontend.png">
+<img width="1042" alt="petclinic-screenshot" src="https://github.com/beauty-deals/beauty-deals-demo/blob/main/img/homepage.png?raw=true">
 
 Success! We now have a React frontend that talks to our Spring Boot backend. 
 

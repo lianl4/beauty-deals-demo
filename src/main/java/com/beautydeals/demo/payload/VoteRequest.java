@@ -1,5 +1,4 @@
 package com.beautydeals.demo.payload;
-
 import javax.validation.constraints.NotNull;
 
 public class VoteRequest {
@@ -14,3 +13,4 @@ public class VoteRequest {
         this.choiceId = choiceId;
     }
 }
+

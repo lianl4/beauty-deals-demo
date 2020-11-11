@@ -19,6 +19,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+/**
+ * Created by rajeevkumarsingh on 20/11/17.
+ */
+
 @RestController
 @RequestMapping("/api/polls")
 public class PollController {
@@ -67,10 +71,9 @@ public class PollController {
     @PostMapping("/{pollId}/votes")
     @PreAuthorize("hasRole('USER')")
     public PollResponse castVote(@CurrentUser UserPrincipal currentUser,
-                                 @PathVariable Long pollId,
-                                 @Valid @RequestBody VoteRequest voteRequest) {
+                         @PathVariable Long pollId,
+                         @Valid @RequestBody VoteRequest voteRequest) {
         return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
     }
 
 }
-

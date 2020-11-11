@@ -28,4 +28,5 @@ public class ChoiceResponse {
     public void setVoteCount(long voteCount) {
         this.voteCount = voteCount;
     }
+
 }

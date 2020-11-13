@@ -5,9 +5,9 @@ import java.sql.*;
 public class BasicSearching {
     private static String tbl = "product_tbl";
     private static String drv = "com.mysql.cj.jdbc.Driver";
-    private static String url = "jdbc:mysql://b6c467462f4954:38ab0380@us-cdbr-east-02.cleardb.com/heroku_7c76701c5a9944c?reconnect=true";
-    private static String usr = "b6c467462f4954";
-    private static String pwd = "38ab0380";
+    private static String url = "jdbc:mysql://be8acc2b51678d:e04ba41b@us-cdbr-east-02.cleardb.com/heroku_be267ccbfffea9c?reconnect=true";
+    private static String usr = "be8acc2b51678d";
+    private static String pwd = "e04ba41b";
 
     public static void testConnection(){
         int productID = 740;

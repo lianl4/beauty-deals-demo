@@ -75,6 +75,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.beautydeals.demo.DemoApplication</mainClass>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -93,7 +96,7 @@
 						</goals>
 						<configuration>
 							<nodeVersion>v11.14.0</nodeVersion>
-							<npmVersion>5.6.0</npmVersion>
+							<npmVersion>3.10.8</npmVersion>
 						</configuration>
 					</execution>
 					<execution>

@@ -2,9 +2,10 @@ import React from 'react'
 // import {BrowserRouter} from "react-router"
 import { Link, useHistory,Switch, Route,BrowserRouter } from "react-router-dom";
 import { Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
-import { Home, Favorite, UploadOption, Mail, Phone, Github, HelpOption } from 'grommet-icons'
-import HomePage from "./home"
-import SearchResult from './searchResult';
+import HomePage from "./Pages/home"
+import SearchResult from './Pages/searchResult';
+import Signup from './Pages/Signup';
+import Signin from './Pages/Login';
 
 const theme = {
   "global": {
@@ -33,6 +34,8 @@ export default () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/search-result" component={SearchResult} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Signin} />
         </Switch>
       </BrowserRouter>
       </Box>

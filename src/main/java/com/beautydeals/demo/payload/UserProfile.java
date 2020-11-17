@@ -7,16 +7,16 @@ public class UserProfile {
     private String username;
     private String name;
     private Instant joinedAt;
-    private Long pollCount;
-    private Long voteCount;
+    private Long productCount;
+    private Long approvalCount;
 
-    public UserProfile(Long id, String username, String name, Instant joinedAt, Long pollCount, Long voteCount) {
+    public UserProfile(Long id, String username, String name, Instant joinedAt, Long productCount, Long approvalCount) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.joinedAt = joinedAt;
-        this.pollCount = pollCount;
-        this.voteCount = voteCount;
+        this.productCount = productCount;
+        this.approvalCount = approvalCount;
     }
 
     public Long getId() {
@@ -51,19 +51,19 @@ public class UserProfile {
         this.joinedAt = joinedAt;
     }
 
-    public Long getPollCount() {
-        return pollCount;
+    public Long getProductCount() {
+        return productCount;
     }
 
-    public void setPollCount(Long pollCount) {
-        this.pollCount = pollCount;
+    public void setProductCount(Long productCount) {
+        this.productCount = productCount;
     }
 
-    public Long getVoteCount() {
-        return voteCount;
+    public Long getApprovalCount() {
+        return approvalCount;
     }
 
-    public void setVoteCount(Long voteCount) {
-        this.voteCount = voteCount;
+    public void setApprovalCount(Long approvalCount) {
+        this.approvalCount = approvalCount;
     }
 }

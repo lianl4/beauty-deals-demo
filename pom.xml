@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>demo</name>
-	<description>Demo app for Beauty Deals</description>
+	<description>Demo app for Beauty Products</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -75,9 +75,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.beautydeals.demo.DemoApplication</mainClass>
-				</configuration>
 			</plugin>
 
 			<plugin>

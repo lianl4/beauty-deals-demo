@@ -3,7 +3,7 @@ package com.beautydeals.demo.payload;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
-public class PollLength {
+public class ProductLength {
     @NotNull
     @Max(7)
     private Integer days;

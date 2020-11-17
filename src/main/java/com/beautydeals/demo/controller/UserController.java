@@ -3,11 +3,11 @@ package com.beautydeals.demo.controller;
 import com.beautydeals.demo.exception.ResourceNotFoundException;
 import com.beautydeals.demo.model.User;
 import com.beautydeals.demo.payload.*;
-import com.beautydeals.demo.repository.PollRepository;
+import com.beautydeals.demo.repository.ProductRepository;
 import com.beautydeals.demo.repository.UserRepository;
-import com.beautydeals.demo.repository.VoteRepository;
+import com.beautydeals.demo.repository.ApprovalRepository;
 import com.beautydeals.demo.security.UserPrincipal;
-import com.beautydeals.demo.service.PollService;
+import com.beautydeals.demo.service.ProductService;
 import com.beautydeals.demo.security.CurrentUser;
 import com.beautydeals.demo.util.AppConstants;
 import org.slf4j.Logger;
@@ -24,13 +24,13 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private PollRepository pollRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private ApprovalRepository approvalRepository;
 
     @Autowired
-    private PollService pollService;
+    private ProductService productService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -58,29 +58,29 @@ public class UserController {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
-        long pollCount = pollRepository.countByCreatedBy(user.getId());
-        long voteCount = voteRepository.countByUserId(user.getId());
+        long productCount = productRepository.countByCreatedBy(user.getId());
+        long approvalCount = approvalRepository.countByUserId(user.getId());
 
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), pollCount, voteCount);
+        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), productCount, approvalCount);
 
         return userProfile;
     }
 
-    @GetMapping("/users/{username}/polls")
-    public PagedResponse<PollResponse> getPollsCreatedBy(@PathVariable(value = "username") String username,
+    @GetMapping("/users/{username}/products")
+    public PagedResponse<ProductResponse> getProductsCreatedBy(@PathVariable(value = "username") String username,
                                                          @CurrentUser UserPrincipal currentUser,
                                                          @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                          @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return pollService.getPollsCreatedBy(username, currentUser, page, size);
+        return productService.getProductsCreatedBy(username, currentUser, page, size);
     }
 
 
-    @GetMapping("/users/{username}/votes")
-    public PagedResponse<PollResponse> getPollsVotedBy(@PathVariable(value = "username") String username,
+    @GetMapping("/users/{username}/approvals")
+    public PagedResponse<ProductResponse> getProductsApprovaldBy(@PathVariable(value = "username") String username,
                                                        @CurrentUser UserPrincipal currentUser,
                                                        @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                        @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return pollService.getPollsVotedBy(username, currentUser, page, size);
+        return productService.getProductsApprovaldBy(username, currentUser, page, size);
     }
 
 }

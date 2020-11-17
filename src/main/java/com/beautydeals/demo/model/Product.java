@@ -13,18 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "polls")
-public class Poll extends UserDateAudit {
+@Table(name = "products")
+public class Product extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
     @Size(max = 140)
-    private String question;
+    private String productDescription;
 
     @OneToMany(
-            mappedBy = "poll",
+            mappedBy = "product",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true
@@ -32,7 +32,7 @@ public class Poll extends UserDateAudit {
     @Size(min = 2, max = 6)
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 30)
-    private List<Choice> choices = new ArrayList<>();
+    private List<Deal> deals = new ArrayList<>();
 
     @NotNull
     private Instant expirationDateTime;
@@ -45,20 +45,20 @@ public class Poll extends UserDateAudit {
         this.id = id;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public List<Choice> getChoices() {
-        return choices;
+    public List<Deal> getDeals() {
+        return deals;
     }
 
-    public void setChoices(List<Choice> choices) {
-        this.choices = choices;
+    public void setDeals(List<Deal> deals) {
+        this.deals = deals;
     }
 
     public Instant getExpirationDateTime() {
@@ -69,13 +69,13 @@ public class Poll extends UserDateAudit {
         this.expirationDateTime = expirationDateTime;
     }
 
-    public void addChoice(Choice choice) {
-        choices.add(choice);
-        choice.setPoll(this);
+    public void addDeal(Deal deal) {
+        deals.add(deal);
+        deal.setProduct(this);
     }
 
-    public void removeChoice(Choice choice) {
-        choices.remove(choice);
-        choice.setPoll(null);
+    public void removeDeal(Deal deal) {
+        deals.remove(deal);
+        deal.setProduct(null);
     }
 }

@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 import java.util.List;
 
-public class PollResponse {
+public class ProductResponse {
     private Long id;
-    private String question;
-    private List<ChoiceResponse> choices;
+    private String productDescription;
+    private List<DealResponse> deals;
     private UserSummary createdBy;
     private Instant creationDateTime;
     private Instant expirationDateTime;
     private Boolean isExpired;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Long selectedChoice;
-    private Long totalVotes;
+    private Long selectedDeal;
+    private Long totalApprovals;
 
     public Long getId() {
         return id;
@@ -26,20 +26,20 @@ public class PollResponse {
         this.id = id;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public List<ChoiceResponse> getChoices() {
-        return choices;
+    public List<DealResponse> getDeals() {
+        return deals;
     }
 
-    public void setChoices(List<ChoiceResponse> choices) {
-        this.choices = choices;
+    public void setDeals(List<DealResponse> deals) {
+        this.deals = deals;
     }
 
     public UserSummary getCreatedBy() {
@@ -75,19 +75,19 @@ public class PollResponse {
         isExpired = expired;
     }
 
-    public Long getSelectedChoice() {
-        return selectedChoice;
+    public Long getSelectedDeal() {
+        return selectedDeal;
     }
 
-    public void setSelectedChoice(Long selectedChoice) {
-        this.selectedChoice = selectedChoice;
+    public void setSelectedDeal(Long selectedDeal) {
+        this.selectedDeal = selectedDeal;
     }
 
-    public Long getTotalVotes() {
-        return totalVotes;
+    public Long getTotalApprovals() {
+        return totalApprovals;
     }
 
-    public void setTotalVotes(Long totalVotes) {
-        this.totalVotes = totalVotes;
+    public void setTotalApprovals(Long totalApprovals) {
+        this.totalApprovals = totalApprovals;
     }
 }

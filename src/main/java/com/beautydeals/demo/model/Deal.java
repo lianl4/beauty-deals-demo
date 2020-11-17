@@ -7,26 +7,26 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "choices")
-public class Choice {
+@Table(name = "deals")
+public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
     @Size(max = 40)
-    private String text;
+    private String dealDescription;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "poll_id", nullable = false)
-    private Poll poll;
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    public Choice() {
+    public Deal() {
 
     }
 
-    public Choice(String text) {
-        this.text = text;
+    public Deal(String dealDescription) {
+        this.dealDescription = dealDescription;
     }
 
     public Long getId() {
@@ -37,28 +37,28 @@ public class Choice {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getDealDescription() {
+        return dealDescription;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDealDescription(String dealDescription) {
+        this.dealDescription = dealDescription;
     }
 
-    public Poll getPoll() {
-        return poll;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setPoll(Poll poll) {
-        this.poll = poll;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Choice choice = (Choice) o;
-        return Objects.equals(id, choice.id);
+        Deal deal = (Deal) o;
+        return Objects.equals(id, deal.id);
     }
 
     @Override

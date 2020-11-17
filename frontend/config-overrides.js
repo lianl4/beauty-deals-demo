@@ -10,7 +10,9 @@ module.exports = override(
         libraryName: "antd", libraryDirectory: "es", style: true // change importing css to less
     }),
     addLessLoader({
-        javascriptEnabled: true,
-        modifyVars: { "@primary-color": "#1DA57A" }
+        lessOptions: {
+            javascriptEnabled: true,
+            modifyVars: { '@primary-color': '#1DA57A' },
+        },
     })
 );

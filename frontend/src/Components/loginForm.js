@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '../Constants';
 import { Form, Input, Button, notification } from 'antd';
 const FormItem = Form.Item;
 
-class Login extends Component {
+class SigninForm extends Component {
     render() {
         const AntWrappedLoginForm = Form.create()(LoginForm)
         return (
@@ -86,4 +86,4 @@ class LoginForm extends Component {
 }
 
 
-export default Login;
+export default SigninForm;

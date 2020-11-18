@@ -51,10 +51,3 @@ export function checkEmailAvailability(email) {
         method: 'GET'
     });
 }
-export function upload(uploadData) {
-    return request({
-        url: API_BASE_URL + "/upload",
-        method: 'POST',
-        body: JSON.stringify(uploadData)         
-    });
-}

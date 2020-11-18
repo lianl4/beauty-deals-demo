@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { signup, checkUsernameAvailability, checkEmailAvailability } from '../util/API';
+import './Signup.css';
 import { Link,useHistory} from 'react-router-dom';
 import { 
     NAME_MIN_LENGTH, NAME_MAX_LENGTH, 
@@ -7,7 +8,7 @@ import {
     EMAIL_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
 } from '../Constants';
-import { Main,Box, Form, FormField, Button, TextInput,Grommet,Heading } from 'grommet';
+import { Box, Form, FormField, Button, TextInput,Grommet } from 'grommet';
 import { notification } from 'antd';
 
 class SignUpForm extends Component {
@@ -79,27 +80,22 @@ class SignUpForm extends Component {
 
     render() {
         return (
-        <Box align="center" justify="center" pad="xlarge" direction="column" fill="vertical" animation="fadeIn" gap = "xlarge" background={{"color":"text-strong","dark":false,"image":"url('')","opacity":"weak"}}>
-        <Box align="start" justify="center" pad="large">
-            <Heading level="2" size="large" textAlign="start" truncate={false} >
-              Sign Up
-            </Heading>
-        </Box>
-        <Box align="center" justify="center" pad="xxlarge" height="large" direction="column" gap="large">
-                    <Form onSubmit={()=>this.handleSubmit}>
+            <div className="signup-container">
+                <h1 className="page-title">Sign Up</h1>
+                <div className="signup-content">
+                    <Form onSubmit={()=>this.handleSubmit} className="signup-form">
                         <FormField 
                             label="Full Name"
                             validateStatus={this.state.name.validateStatus}
-                            help={this.state.name.errorMsg}
-                            >
+                            required="true"
+                            help={this.state.name.errorMsg}>
                             <TextInput
                                 size="medium"
                                 name="name"
                                 autoComplete="off"
                                 placeholder="Your full name"
                                 value={this.state.name.value} 
-                                onChange={(event) => this.handleInputChange(event, this.validateName)}
-                                 />    
+                                onChange={(event) => this.handleInputChange(event, this.validateName)} />    
                         </FormField>
                         <FormField label="Username"
                             hasFeedback
@@ -152,9 +148,8 @@ class SignUpForm extends Component {
                         </Box>
                         
                     </Form>
-                </Box>
-                </Box>  
-               
+                </div>
+            </div>
         );
     }
 

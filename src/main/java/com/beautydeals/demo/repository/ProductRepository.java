@@ -1,6 +1,6 @@
 package com.beautydeals.demo.repository;
 
-import com.beautydeals.demo.model.Poll;
+import com.beautydeals.demo.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PollRepository extends JpaRepository<Poll, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<Poll> findById(Long pollId);
+    Optional<Product> findById(Long productId);
 
-    Page<Poll> findByCreatedBy(Long userId, Pageable pageable);
+    Page<Product> findByCreatedBy(Long userId, Pageable pageable);
 
     long countByCreatedBy(Long userId);
 
-    List<Poll> findByIdIn(List<Long> pollIds);
+    List<Product> findByIdIn(List<Long> productIds);
 
-    List<Poll> findByIdIn(List<Long> pollIds, Sort sort);
+    List<Product> findByIdIn(List<Long> productIds, Sort sort);
 }

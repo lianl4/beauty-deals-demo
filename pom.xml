@@ -115,12 +115,12 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm install grommet styled-components --save</id>
+						<id>npm install grommet antd styled-components --save</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>install grommet styled-components --save</arguments>
+							<arguments>install grommet antd styled-components --save</arguments>
 						</configuration>
 					</execution>
 				</executions>

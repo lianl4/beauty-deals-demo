@@ -4,24 +4,24 @@ import com.beautydeals.demo.model.audit.DateAudit;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = {
+@Table(name = "approvals", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                "poll_id",
+                "product_id",
                 "user_id"
         })
 })
-public class Vote extends DateAudit {
+public class Approval extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "poll_id", nullable = false)
-    private Poll poll;
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "choice_id", nullable = false)
-    private Choice choice;
+    @JoinColumn(name = "deal_id", nullable = false)
+    private Deal deal;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -35,20 +35,20 @@ public class Vote extends DateAudit {
         this.id = id;
     }
 
-    public Poll getPoll() {
-        return poll;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setPoll(Poll poll) {
-        this.poll = poll;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Choice getChoice() {
-        return choice;
+    public Deal getDeal() {
+        return deal;
     }
 
-    public void setChoice(Choice choice) {
-        this.choice = choice;
+    public void setDeal(Deal deal) {
+        this.deal = deal;
     }
 
     public User getUser() {

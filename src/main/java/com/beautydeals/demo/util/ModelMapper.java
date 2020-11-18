@@ -1,9 +1,9 @@
 package com.beautydeals.demo.util;
 
-import com.beautydeals.demo.model.Poll;
+import com.beautydeals.demo.model.Product;
 import com.beautydeals.demo.model.User;
-import com.beautydeals.demo.payload.ChoiceResponse;
-import com.beautydeals.demo.payload.PollResponse;
+import com.beautydeals.demo.payload.DealResponse;
+import com.beautydeals.demo.payload.ProductResponse;
 import com.beautydeals.demo.payload.UserSummary;
 
 import java.time.Instant;
@@ -13,40 +13,40 @@ import java.util.stream.Collectors;
 
 public class ModelMapper {
 
-    public static PollResponse mapPollToPollResponse(Poll poll, Map<Long, Long> choiceVotesMap, User creator, Long userVote) {
-        PollResponse pollResponse = new PollResponse();
-        pollResponse.setId(poll.getId());
-        pollResponse.setQuestion(poll.getQuestion());
-        pollResponse.setCreationDateTime(poll.getCreatedAt());
-        pollResponse.setExpirationDateTime(poll.getExpirationDateTime());
+    public static ProductResponse mapProductToProductResponse(Product product, Map<Long, Long> dealApprovalsMap, User creator, Long userApproval) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setProductDescription(product.getProductDescription());
+        productResponse.setCreationDateTime(product.getCreatedAt());
+        productResponse.setExpirationDateTime(product.getExpirationDateTime());
         Instant now = Instant.now();
-        pollResponse.setExpired(poll.getExpirationDateTime().isBefore(now));
+        productResponse.setExpired(product.getExpirationDateTime().isBefore(now));
 
-        List<ChoiceResponse> choiceResponses = poll.getChoices().stream().map(choice -> {
-            ChoiceResponse choiceResponse = new ChoiceResponse();
-            choiceResponse.setId(choice.getId());
-            choiceResponse.setText(choice.getText());
+        List<DealResponse> dealResponses = product.getDeals().stream().map(deal -> {
+            DealResponse dealResponse = new DealResponse();
+            dealResponse.setId(deal.getId());
+            dealResponse.setDealDescription(deal.getDealDescription());
 
-            if(choiceVotesMap.containsKey(choice.getId())) {
-                choiceResponse.setVoteCount(choiceVotesMap.get(choice.getId()));
+            if(dealApprovalsMap.containsKey(deal.getId())) {
+                dealResponse.setApprovalCount(dealApprovalsMap.get(deal.getId()));
             } else {
-                choiceResponse.setVoteCount(0);
+                dealResponse.setApprovalCount(0);
             }
-            return choiceResponse;
+            return dealResponse;
         }).collect(Collectors.toList());
 
-        pollResponse.setChoices(choiceResponses);
+        productResponse.setDeals(dealResponses);
         UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
-        pollResponse.setCreatedBy(creatorSummary);
+        productResponse.setCreatedBy(creatorSummary);
 
-        if(userVote != null) {
-            pollResponse.setSelectedChoice(userVote);
+        if(userApproval != null) {
+            productResponse.setSelectedDeal(userApproval);
         }
 
-        long totalVotes = pollResponse.getChoices().stream().mapToLong(ChoiceResponse::getVoteCount).sum();
-        pollResponse.setTotalVotes(totalVotes);
+        long totalApprovals = productResponse.getDeals().stream().mapToLong(DealResponse::getApprovalCount).sum();
+        productResponse.setTotalApprovals(totalApprovals);
 
-        return pollResponse;
+        return productResponse;
     }
 
 }

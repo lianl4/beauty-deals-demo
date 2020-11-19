@@ -36,7 +36,7 @@ function Signup() {
           </Box>
           </Nav>
           </Header>
-          <SignUpForm></SignUpForm>
+          <SignUpForm history></SignUpForm>
     </Grommet>
   );
 }

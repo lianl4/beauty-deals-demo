@@ -4,18 +4,51 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../Constants';
 import { Form, Input, Button, notification } from 'antd';
+import { Anchor, Grommet, Main, Header, Nav, Tabs, Tab, Box,Heading, Select, TextInput, Footer } from 'grommet'
+import { Login,Home } from 'grommet-icons'
 const FormItem = Form.Item;
 
-class Login extends Component {
+const theme = {
+    "global": {
+      "colors": {
+        "background": {
+          "light": "#ffffff",
+          "dark": "#000000"
+        }
+      },
+      "font": {
+        "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
+      }
+    },
+    "button": {
+      "extend": [
+        null
+      ]
+    }
+  }
+
+class Signin extends Component {
     render() {
         const AntWrappedLoginForm = Form.create()(LoginForm)
         return (
+            <Grommet full theme={theme}>
+            <Header align="center" direction="row" justify="between" gap="small" background={{"opacity":"strong","color":"text-strong"}} pad={{"horizontal":"xsmall","vertical":"medium"}} flex="grow" fill="horizontal" overflow="auto">
+                <Nav align="center" flex={false} justify="end">
+                <Box align="end" justify="center" direction="row" gap="medium" alignSelf="end">
+                  <Anchor label="Home" icon={<Home />} size="medium"
+                  onClick={()=> this.props.history.push("/") } />
+                  <Anchor label="Sign In/Up" icon={<Login />} size="medium" 
+                  onClick={()=> this.props.history.push("/signup") }/>
+                </Box>
+                </Nav>
+                </Header>
             <div className="login-container">
                 <h1 className="page-title">Login</h1>
                 <div className="login-content">
                     <AntWrappedLoginForm onLogin={this.props.onLogin} />
                 </div>
             </div>
+            </Grommet>
         );
     }
 } 
@@ -42,7 +75,7 @@ class LoginForm extends Component {
                         });                    
                     } else {
                         notification.error({
-                            message: 'Beauty Deals',
+                            message: 'Beauty Deals!!!',
                             description: error.message || 'Sorry! Something went wrong. Please try again!'
                         });                                            
                     }
@@ -54,7 +87,7 @@ class LoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
+            <Form onSubmit={(event)=>this.handleSubmit(event)} className="login-form">
                 <FormItem>
                     {getFieldDecorator('usernameOrEmail', {
                         rules: [{ required: true, message: '(Please input your username or email!)' }],
@@ -86,4 +119,4 @@ class LoginForm extends Component {
 }
 
 
-export default Login;
+export default Signin;

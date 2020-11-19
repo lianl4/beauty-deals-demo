@@ -56,13 +56,13 @@ const theme = {
           </Box>
         </Box>
         <Footer align="center" direction="row" flex={false} justify="center" gap="large" background={{"image":"url('')","opacity":"strong","color":"active-text"}} pad="xsmall">
-          <Heading textAlign="center" size="small" level="3">
+          <Heading textAlign="center" size="small" level="3" color="active-text">
             Made by V-Puppies  
           </Heading>
           <Box align="center" justify="between" direction="row" pad="small" gap="large">
-            <Mail size="medium" />
+          <Mail size="medium" />
             <Phone size="medium" />
-            <Github size="medium" />
+      <Github size="medium" />
             <HelpOption size="medium" />
           </Box>
         </Footer>

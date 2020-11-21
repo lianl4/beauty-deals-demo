@@ -148,7 +148,7 @@ public class ProductService {
         product.setProductDescription(productRequest.getProductDescription());
 
         productRequest.getDeals().forEach(dealRequest -> {
-            product.addDeal(new Deal(dealRequest.getDealDescription()));
+            product.addDeal(new Deal(dealRequest.getDealDescription(), dealRequest.getDiscount(), dealRequest.getDiscountPrice(), dealRequest.getSeller(), dealRequest.getStartDate(), dealRequest.getExpireDate()));
         });
 
         Instant now = Instant.now();

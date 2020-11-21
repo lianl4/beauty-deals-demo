@@ -26,6 +26,11 @@ public class ModelMapper {
             DealResponse dealResponse = new DealResponse();
             dealResponse.setId(deal.getId());
             dealResponse.setDealDescription(deal.getDealDescription());
+            dealResponse.setDiscount(deal.getDiscount());
+            dealResponse.setDiscountPrice(deal.getDiscountPrice());
+            dealResponse.setSeller(deal.getSeller());
+            dealResponse.setStartDate(deal.getStartDate());
+            dealResponse.setExpireDate(deal.getExpireDate());
 
             if(dealApprovalsMap.containsKey(deal.getId())) {
                 dealResponse.setApprovalCount(dealApprovalsMap.get(deal.getId()));

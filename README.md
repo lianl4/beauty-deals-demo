@@ -18,20 +18,12 @@ In a terminal window, start the application with:
 $ mvn spring-boot:run 
 
 [...]
-2020-11-05 20:58:01.441  INFO 66340 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-11-05 20:58:01.457  INFO 66340 --- [           main] com.beautydeals.demo.DemoApplication     : Started DemoApplication in 7.35 seconds (JVM running for 7.75)
-2020-11-05 20:58:14.159  INFO 66340 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-11-05 20:58:14.163  INFO 66340 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-11-19 11:23:56.162  INFO 19505 --- [nio-5000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-19 11:23:56.162  INFO 19505 --- [nio-5000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-11-19 11:23:56.172  INFO 19505 --- [nio-5000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
 
 ```
-Open http://localhost:8080/, you should see a page with error messages, but it means the application is running correctly.
-
-Then, in another terminal window, fetch http://localhost:8080/api/hello with curl or your web browser:
-```
-$ curl http://localhost:8080/api/hello
-Hello, the time at the server is now Thu Nov 05 09:38:19 CEST 2020
-```
-We now have a rest service in Spring Boot up and running!
+Open http://localhost:5000/, you should see the home page. We now have Spring Boot up and running! If made changes in backend/server side, you need to rerun the `mvn spring-boot:run`.
 
 ## Run the frontend with React
 Now let's start the frontend. Go to a new terminal window and change to /frontend:
@@ -56,11 +48,11 @@ You can now view frontend in the browser.
 Note that the development build is not optimized.
 To create a production build, use npm run build.
 ```
-This will open a web browser on your desktop, and it should display something like this:
+This will open a web browser on http://localhost:3000/ on your desktop, and it should display something like this:
 
-<img width="1042" alt="petclinic-screenshot" src="https://github.com/beauty-deals/beauty-deals-demo/blob/main/img/homepage.png?raw=true">
+<img width="1042" alt="beautydeals-screenshot" src="https://github.com/beauty-deals/beauty-deals-demo/blob/main/img/WechatIMG73.png?raw=true">
 
-Success! We now have a React frontend that talks to our Spring Boot backend. 
+Success! We now have a React frontend that talks to our Spring Boot backend. The change made in frontend code will compile immediately.
 
 ## Datebase related logic
 

@@ -29,14 +29,16 @@ const theme = {
         <Header align="center" direction="row" justify="between" gap="small" background={{"image":"url('')","opacity":"strong","color":"active-text"}} pad={{"horizontal":"xsmall","vertical":"medium"}} flex="grow" fill="horizontal" overflow="auto">
           <Nav align="center" flex={false} justify="end">
           <Box align="end" justify="center" direction="row" gap="medium" alignSelf="end">
-            <Anchor label="Home" icon={<Home />} size="medium" />
+            <Anchor label="Home" icon={<Home />} size="medium"
+            onClick={()=> history.push("/") } />
             <Anchor label="Favorite" icon={<Favorite />} size="medium" />
             <Anchor label="Sign In/Up" icon={<Login />} size="medium" 
             onClick={()=> history.push("/signup") }/>
           </Box>
           </Nav>
           <Box align="center" justify="center">
-            <Tab title="Upload New Deals" icon={<UploadOption />} />  
+            <Anchor label="Upload New Deals" icon={<UploadOption />}
+             onClick={()=> history.push("/upload") } />  
           </Box>
         </Header>
         <Box align="center" justify="center" pad="xlarge" direction="column" fill="vertical" animation="fadeIn" background={{"color":"text-strong","dark":false,"image":"url('')","opacity":"weak"}}>
@@ -54,13 +56,13 @@ const theme = {
           </Box>
         </Box>
         <Footer align="center" direction="row" flex={false} justify="center" gap="large" background={{"image":"url('')","opacity":"strong","color":"active-text"}} pad="xsmall">
-          <Heading textAlign="center" size="small" level="3">
+          <Heading textAlign="center" size="small" level="3" color="active-text">
             Made by V-Puppies  
           </Heading>
           <Box align="center" justify="between" direction="row" pad="small" gap="large">
-            <Mail size="medium" />
+          <Mail size="medium" />
             <Phone size="medium" />
-            <Github size="medium" />
+      <Github size="medium" />
             <HelpOption size="medium" />
           </Box>
         </Footer>

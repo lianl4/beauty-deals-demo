@@ -2,7 +2,7 @@ import React from "react";
 import { Anchor, Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
 import { Login,Home, Favorite, UploadOption, Mail, Phone, Github, HelpOption } from 'grommet-icons'
 import { Link, useHistory } from "react-router-dom";
-import SignUpForm from "../Components/signUpForm";
+import UploadForm from "../Components/uploadForm";
 
 const theme = {
   "global": {
@@ -22,7 +22,7 @@ const theme = {
     ]
   }
 }
-function Signup() {
+function Upload() {
   const history = useHistory();
   return (
     <Grommet full theme={theme}>
@@ -36,9 +36,9 @@ function Signup() {
           </Box>
           </Nav>
           </Header>
-          <SignUpForm history></SignUpForm>
+          <UploadForm></UploadForm>
     </Grommet>
   );
 }
 
-export default Signup;
+export default Upload;

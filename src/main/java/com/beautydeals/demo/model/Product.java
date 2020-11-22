@@ -29,7 +29,7 @@ public class Product extends UserDateAudit {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    @Size(min = 2, max = 6)
+    @Size(min = 0, max = 10)
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 30)
     private List<Deal> deals = new ArrayList<>();

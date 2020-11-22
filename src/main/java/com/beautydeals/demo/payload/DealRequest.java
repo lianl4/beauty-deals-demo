@@ -21,10 +21,8 @@ public class DealRequest {
     @Size(max = 10)
     private String discount;
 
-    @NotBlank
     private Date startDate;
 
-    @NotBlank
     private Date expireDate;
 
     public String getDealDescription() {

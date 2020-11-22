@@ -12,7 +12,7 @@ public class ProductRequest {
     private String productDescription;
 
     @NotNull
-    @Size(min = 2, max = 6)
+    @Size(min = 0, max = 10)
     @Valid
     private List<DealRequest> deals;
 

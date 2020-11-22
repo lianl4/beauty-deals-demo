@@ -30,10 +30,8 @@ public class Deal {
     @Size(max = 10)
     private String discount;
 
-    @NotBlank
     private Date startDate;
 
-    @NotBlank
     private Date expireDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

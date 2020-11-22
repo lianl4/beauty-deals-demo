@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import {
   Route,
   Switch,
-  BrowserRouter,
-  useHistory
+  useHistory,
+  withRouter,
 } from 'react-router-dom';
 import { Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
 import HomePage from "../Pages/home"
 import SearchResult from '../Pages/searchResult';
-import Signup from '../Pages/Signup';
+// import Signup from '../Pages/Signup';
+import SignUpForm from '../Components/signUpForm';
 import Signin from '../Components/loginForm';
-import Upload from '../Pages/upload';
+import Upload from '../Components/uploadForm';
 
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
@@ -54,7 +55,7 @@ class App extends Component {
       placement: 'topRight',
       top: 70,
       duration: 3,
-    });
+    });    
   }
 
   loadCurrentUser() {
@@ -62,16 +63,16 @@ class App extends Component {
       isLoading: true
     });
     getCurrentUser()
-        .then(response => {
-          this.setState({
-            currentUser: response,
-            isAuthenticated: true,
-            isLoading: false
-          });
-        }).catch(error => {
+    .then(response => {
       this.setState({
+        currentUser: response,
+        isAuthenticated: true,
         isLoading: false
       });
+    }).catch(error => {
+      this.setState({
+        isLoading: false
+      });  
     });
   }
 
@@ -88,16 +89,16 @@ class App extends Component {
     });
 
     this.props.history.push(redirectTo);
-
+    
     notification[notificationType]({
-      message: 'Beauty Deals',
+      message: 'Polling App',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Beauty Deals',
+      message: 'Polling App',
       description: "You're successfully logged in.",
     });
     this.loadCurrentUser();
@@ -108,21 +109,21 @@ class App extends Component {
     return (
           <Grommet full theme={theme}>
             <Box>
-              <BrowserRouter>
+              
                 <Switch>
                   <Route exact path="/" component={HomePage}></Route>
                   <Route path="/search-result" component={SearchResult}></Route>
-                  <Route path="/signup" component={Signup}></Route>
+                  <Route path="/signup" component={SignUpForm}></Route>
                   <Route path="/login"
                          render={(props) => <Signin onLogin={this.handleLogin} {...props} />}
                   ></Route>
                   <Route path="/upload" component={Upload} ></Route>
                 </Switch>
-              </BrowserRouter>
+              
             </Box>
           </Grommet>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

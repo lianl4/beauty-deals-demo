@@ -7,7 +7,7 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 const { TextArea } = Input
 
-class NewPoll extends Component {
+class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -289,4 +289,4 @@ function PollChoice(props) {
 }
 
 
-export default NewPoll;
+export default Upload;

@@ -10,7 +10,8 @@ import SearchResult from '../Pages/searchResult';
 import SignUpForm from '../Components/signUpForm';
 import Signin from '../Components/loginForm';
 import Upload from '../Components/uploadForm';
-
+import Headers from '../Components/Header'
+import Favorite from '../Pages/favorite'
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
 import { notification } from 'antd';
@@ -86,14 +87,14 @@ class App extends Component {
     this.props.history.push(redirectTo);
     
     notification[notificationType]({
-      message: 'Polling App',
+      message: 'Beauty Deals',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Polling App',
+      message: 'Beauty Deals',
       description: "You're successfully logged in.",
     });
     this.loadCurrentUser();
@@ -103,11 +104,16 @@ class App extends Component {
   render() {
     return (
           <Grommet full theme={theme}>
+            <Headers currentUser={this.state.currentUser} 
+              onLogout={this.handleLogout}/>
             <Box>
               
                 <Switch>
-                  <Route exact path="/" component={HomePage}></Route>
+                  <Route exact path="/"  
+                  render={(props) => <HomePage
+                      currentUser={this.state.currentUser} {...props} />}></Route>
                   <Route path="/search-result" component={SearchResult}></Route>
+                  <Route path="/favorite" component={Favorite}></Route>
                   <Route path="/signup" component={SignUpForm}></Route>
                   <Route path="/login"
                          render={(props) => <Signin onLogin={this.handleLogin} {...props} />}

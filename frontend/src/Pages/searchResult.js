@@ -89,21 +89,6 @@ class SearchResult extends Component {
         return (
             <Grommet full theme={theme}>
                 <Main fill="vertical" flex="grow" overflow="auto">
-                    <Header align="center" direction="row" justify="between" gap="small" color = "text-strong"  background={{"color":"text-strong"}} pad={{"horizontal":"xsmall","vertical":"medium"}} flex="grow" fill="horizontal" overflow="auto">
-                        <Nav align="center" flex={false} justify="end">
-                            <Box align="end" justify="center" direction="row" gap="medium" alignSelf="end">
-                                <Anchor label="Home" icon={<Home />} size="medium"
-                                        onClick={()=> this.props.history.push("/") } />
-                                <Anchor label="Favorite" icon={<Favorite />} size="medium" />
-                                <Anchor label="Sign In/Up" icon={<Login />} size="medium"
-                                        onClick={()=> this.props.history.push("/signup") }/>
-                            </Box>
-                        </Nav>
-                        <Box align="baseline" justify="between" direction="row" gap="xsmall">
-                            <TextInput placeholder="Find an Item?" />
-                            <Button label="Search" onClick={()=> this.props.history.push("/search-result")}/>
-                        </Box>
-                    </Header>
                     <Box align="center" justify="start" pad="xlarge" height="large">
                         <DataTable
                             columns={columns}

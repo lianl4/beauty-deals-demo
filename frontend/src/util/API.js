@@ -1,4 +1,6 @@
 import { API_BASE_URL, ACCESS_TOKEN, MAKEUP_API_URL } from '../Constants';
+import axios from 'axios';
+
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
@@ -71,8 +73,5 @@ export function getCurrentUser() {
 }
 
 export function getSearchResult(brand, category) {
-    return request({
-        url: MAKEUP_API_URL(brand, category),
-        method: 'GET'
-    })
+    return axios.get(MAKEUP_API_URL(brand, category));
 }

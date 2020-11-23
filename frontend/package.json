@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^3.26.20",
+    "axios": "^0.21.0",
     "grommet": "^2.15.2",
     "grommet-icons": "^4.5.0",
     "less": "^3.12.2",

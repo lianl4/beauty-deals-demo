@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { Anchor, Grommet, Main, Header, Nav, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
 import { Login,Home, Favorite, UploadOption, Mail, Phone, Github, HelpOption } from 'grommet-icons'
+import { BRANDS, CATEGORIES} from "../Constants";
 
 const theme = {
   "global": {
@@ -22,24 +23,10 @@ const theme = {
   }
 }
 
-const brand_options = [
-    "almay",
-    "alva",
-];
-
-const category_options = [
-    "lipstick",
-    "foundation",
-];
-
-
 const HomePage = () => {
     const history = useHistory();
     const [brand, setBrand] = useState();
     const [category, setCategory] = useState();
-
-    console.log(brand);
-    console.log(category);
 
      return (
     <Grommet full theme={theme}>
@@ -68,13 +55,13 @@ const HomePage = () => {
           </Box>
           <Box align="start" justify="start" direction="row" pad="medium" gap="xsmall" background={{"opacity":"medium","color":"active-text"}}>
             <Select
-                options={brand_options}
+                options={BRANDS}
                 name="Brand"
                 placeholder="Brand"
                 onChange={({ option }) => setBrand(option)}
             />
             <Select
-                options={category_options}
+                options={CATEGORIES}
                 name="Category"
                 placeholder="Category"
                 onChange={({ option }) => setCategory(option)}

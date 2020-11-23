@@ -8,11 +8,11 @@ import {
 import { Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
 import HomePage from "../Pages/home"
 import SearchResult from '../Pages/searchResult';
-// import Signup from '../Pages/Signup';
 import SignUpForm from '../Components/signUpForm';
 import Signin from '../Components/loginForm';
 import Upload from '../Components/uploadForm';
-
+import Headers from '../Components/Header'
+import Favorite from '../Pages/favorite'
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
 
@@ -108,11 +108,16 @@ class App extends Component {
   render() {
     return (
           <Grommet full theme={theme}>
+            <Headers currentUser={this.state.currentUser} 
+              onLogout={this.handleLogout}/>
             <Box>
               
                 <Switch>
-                  <Route exact path="/" component={HomePage}></Route>
+                  <Route exact path="/"  
+                  render={(props) => <HomePage
+                      currentUser={this.state.currentUser} {...props} />}></Route>
                   <Route path="/search-result" component={SearchResult}></Route>
+                  <Route path="/favorite" component={Favorite}></Route>
                   <Route path="/signup" component={SignUpForm}></Route>
                   <Route path="/login"
                          render={(props) => <Signin onLogin={this.handleLogin} {...props} />}

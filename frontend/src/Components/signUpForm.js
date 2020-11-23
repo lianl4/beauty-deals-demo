@@ -104,16 +104,6 @@ class SignUpForm extends Component {
     render() {
         return (
             <Grommet full theme={theme}>
-            <Header align="center" direction="row" justify="between" gap="small" background={{"opacity":"strong","color":"text-strong"}} pad={{"horizontal":"xsmall","vertical":"medium"}} flex="grow" fill="horizontal" overflow="auto">
-                <Nav align="center" flex={false} justify="end">
-                <Box align="end" justify="center" direction="row" gap="medium" alignSelf="end">
-                  <Anchor label="Home" icon={<Home />} size="medium"
-                  onClick={()=> this.props.history.push("/") } />
-                  <Anchor label="Sign In/Up" icon={<Login />} size="medium" 
-                  onClick={()=> this.props.history.push("/signup") }/>
-                </Box>
-                </Nav>
-                </Header>
             <div className="signup-container">
                 <h1 className="page-title">Sign Up</h1>
                 <div className="signup-content">

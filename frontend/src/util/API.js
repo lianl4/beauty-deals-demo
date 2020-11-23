@@ -1,4 +1,6 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN } from '../Constants';
+import { API_BASE_URL, ACCESS_TOKEN, MAKEUP_API_URL } from '../Constants';
+import axios from 'axios';
+
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
@@ -68,4 +70,8 @@ export function getCurrentUser() {
         url: API_BASE_URL + "/user/me",
         method: 'GET'
     });
+}
+
+export function getSearchResult(brand, category) {
+    return axios.get(MAKEUP_API_URL(brand, category));
 }

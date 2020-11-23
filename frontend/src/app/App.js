@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import {
   Route,
   Switch,
-  useHistory,
   withRouter,
 } from 'react-router-dom';
-import { Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
+import { Grommet, Box } from 'grommet'
 import HomePage from "../Pages/home"
 import SearchResult from '../Pages/searchResult';
 import SignUpForm from '../Components/signUpForm';
@@ -15,10 +14,7 @@ import Headers from '../Components/Header'
 import Favorite from '../Pages/favorite'
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
-
-
-import { Layout, notification } from 'antd';
-const { Content } = Layout;
+import { notification } from 'antd';
 
 const theme = {
   "global": {
@@ -91,14 +87,14 @@ class App extends Component {
     this.props.history.push(redirectTo);
     
     notification[notificationType]({
-      message: 'Polling App',
+      message: 'Beauty Deals',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Polling App',
+      message: 'Beauty Deals',
       description: "You're successfully logged in.",
     });
     this.loadCurrentUser();

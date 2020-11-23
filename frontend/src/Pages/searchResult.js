@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
     Button,
     Table,
@@ -14,7 +14,7 @@ import {
     Header,
   } from "grommet";
 import { AddCircle, Favorite,Login,Home } from "grommet-icons";
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 
 
@@ -36,9 +36,13 @@ const theme = {
     ]
   }
 }
-const SearchResult = () => {
+const SearchResult = (props) => {
   const history= useHistory();
   const responsive = useContext(ResponsiveContext);
+
+  const brand = props.location.data.brand;
+  const category = props.location.data.category;
+  console.log(brand);
   return (
     <Grommet full theme={theme}>
       <Main fill="vertical" flex="grow" overflow="auto">

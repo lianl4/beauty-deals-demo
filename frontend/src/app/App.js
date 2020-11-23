@@ -2,23 +2,18 @@ import React, { Component } from 'react'
 import {
   Route,
   Switch,
-  useHistory,
   withRouter,
 } from 'react-router-dom';
-import { Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
+import { Grommet, Box } from 'grommet'
 import HomePage from "../Pages/home"
 import SearchResult from '../Pages/searchResult';
-// import Signup from '../Pages/Signup';
 import SignUpForm from '../Components/signUpForm';
 import Signin from '../Components/loginForm';
 import Upload from '../Components/uploadForm';
 
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
-
-
-import { Layout, notification } from 'antd';
-const { Content } = Layout;
+import { notification } from 'antd';
 
 const theme = {
   "global": {

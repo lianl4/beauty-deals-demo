@@ -4,28 +4,10 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../Constants';
 import { Form, Input, Button, notification } from 'antd';
-import { Anchor, Grommet, Header, Nav, Box } from 'grommet'
-import { Login,Home } from 'grommet-icons'
-const FormItem = Form.Item;
+import { Grommet } from 'grommet';
+import { theme } from "../Constants";
 
-const theme = {
-    "global": {
-      "colors": {
-        "background": {
-          "light": "#ffffff",
-          "dark": "#000000"
-        }
-      },
-      "font": {
-        "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
-      }
-    },
-    "button": {
-      "extend": [
-        null
-      ]
-    }
-  }
+const FormItem = Form.Item;
 
 class Signin extends Component {
     render() {

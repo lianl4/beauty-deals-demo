@@ -9,6 +9,9 @@ export const MAKEUP_API_URL = ( brand, category ) => {
     else
         return `https://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${category}`;
 }
+export const MAKEUP_API_BY_ID_URL = ( id ) => {
+    return `https://makeup-api.herokuapp.com/api/v1/products/${id}.json`;
+}
 export const ACCESS_TOKEN = 'accessToken';
 
 export const POLL_LIST_SIZE = 30;
@@ -44,3 +47,22 @@ export const CATEGORIES = [
     "mascara",
     "nail_polish",
 ];
+
+export const theme = {
+    "global": {
+        "colors": {
+            "background": {
+                "light": "#ffffff",
+                "dark": "#000000"
+            }
+        },
+        "font": {
+            "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
+        }
+    },
+    "button": {
+        "extend": [
+            null
+        ]
+    }
+};

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import {
-    Button,
     Table,
     TableHeader,
     TableRow,
@@ -8,35 +7,12 @@ import {
     TableBody,
     Image,
     Box,
-    Grommet, Main, Nav, Tabs, Tab, TextInput,
+    Grommet, Main,
     ResponsiveContext,
-    Anchor,
-    Header,
   } from "grommet";
-import { useHistory } from 'react-router-dom'
+import { theme } from "../Constants";
 
-
-
-const theme = {
-  "global": {
-    "colors": {
-      "background": {
-        "light": "#ffffff",
-        "dark": "#000000"
-      }
-    },
-    "font": {
-      "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
-    }
-  },
-  "button": {
-    "extend": [
-      null
-    ]
-  }
-}
 const Favorite = () => {
-  const history= useHistory();
   const responsive = useContext(ResponsiveContext);
   return (
     <Grommet full theme={theme}>

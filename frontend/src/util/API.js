@@ -1,4 +1,4 @@
-import { API_BASE_URL, ACCESS_TOKEN, MAKEUP_API_URL } from '../Constants';
+import {API_BASE_URL, ACCESS_TOKEN, MAKEUP_API_URL, MAKEUP_API_BY_ID_URL} from '../Constants';
 import axios from 'axios';
 
 const request = (options) => {
@@ -74,4 +74,8 @@ export function getCurrentUser() {
 
 export function getSearchResult(brand, category) {
     return axios.get(MAKEUP_API_URL(brand, category));
+}
+
+export function getProductById(id) {
+    return axios.get(MAKEUP_API_BY_ID_URL(id));
 }

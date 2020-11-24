@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {
-    Link,
-    withRouter
-} from 'react-router-dom';
-import { Anchor, Grommet, Main, Header, Nav, Tabs, Tab, Box, Button, Heading, Select, TextInput, Footer } from 'grommet'
-import { Login,Home, Favorite, UploadOption, Mail, Phone, Github, HelpOption } from 'grommet-icons'
+import { withRouter } from 'react-router-dom';
+import { Anchor, Header, Nav, Box } from 'grommet'
+import { Login,Home, Favorite, UploadOption } from 'grommet-icons'
     
 class Headers extends Component {
     constructor(props) {

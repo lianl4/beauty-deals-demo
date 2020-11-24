@@ -4,36 +4,19 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom';
-import { Grommet, Box } from 'grommet'
-import HomePage from "../Pages/home"
-import SearchResult from '../Pages/searchResult';
+import { Grommet, Box } from 'grommet';
 import SignUpForm from '../Components/signUpForm';
 import Signin from '../Components/loginForm';
 import Upload from '../Components/uploadForm';
-import Headers from '../Components/Header'
-import Favorite from '../Pages/favorite'
+import Headers from '../Components/Header';
+import HomePage from "../Pages/home";
+import SearchResult from '../Pages/searchResult';
+import ProductDetail from "../Pages/productDetail";
+import Favorite from '../Pages/favorite';
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
 import { notification } from 'antd';
-
-const theme = {
-  "global": {
-    "colors": {
-      "background": {
-        "light": "#ffffff",
-        "dark": "#000000"
-      }
-    },
-    "font": {
-      "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
-    }
-  },
-  "button": {
-    "extend": [
-      null
-    ]
-  }
-}
+import { theme } from "../Constants";
 
 class App extends Component {
   constructor(props) {
@@ -119,6 +102,8 @@ class App extends Component {
                          render={(props) => <Signin onLogin={this.handleLogin} {...props} />}
                   ></Route>
                   <Route path="/upload" component={Upload} ></Route>
+                  <Route exact path="/product" component={ProductDetail} />
+                  <Route exact path="/product/:id" component={ProductDetail} />
                 </Switch>
               
             </Box>

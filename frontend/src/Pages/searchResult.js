@@ -1,35 +1,15 @@
 import React, { Component } from "react";
 import {
-    Button,
     DataTable,
     Text,
     Image,
     Box,
-    Grommet, Main, Nav, TextInput,
-    Anchor,
-    Header,
+    Grommet,
+    Main,
   } from "grommet";
-import { Favorite,Login,Home } from "grommet-icons";
 import {getSearchResult} from "../util/API";
-
-const theme = {
-  "global": {
-    "colors": {
-      "background": {
-        "light": "#ffffff",
-        "dark": "#000000"
-      }
-    },
-    "font": {
-      "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
-    }
-  },
-  "button": {
-    "extend": [
-      null
-    ]
-  }
-}
+import ProductCell from "../Components/productCell";
+import { theme } from "../Constants";
 
 const columns = [
     {
@@ -47,6 +27,11 @@ const columns = [
         property: 'name',
         header: <Text>Name</Text>,
         primary: true,
+        render: data => (
+            <ProductCell
+                product={data}
+            />
+        )
     },
     {
         property: 'brand',

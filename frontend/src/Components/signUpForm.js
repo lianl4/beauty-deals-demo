@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { signup, checkUsernameAvailability, checkEmailAvailability } from '../util/API';
 import './Signup.css';
@@ -9,29 +8,12 @@ import {
     EMAIL_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
 } from '../Constants';
-import { Anchor, Grommet, Main, Header, Nav, Tabs, Tab, Box,Heading, Select, TextInput, Footer } from 'grommet'
-import { Login,Home } from 'grommet-icons'
+import { Grommet } from 'grommet'
 import { Form, Input, Button, notification } from 'antd';
+import { theme } from "../Constants";
+
 const FormItem = Form.Item;
 
-const theme = {
-    "global": {
-      "colors": {
-        "background": {
-          "light": "#ffffff",
-          "dark": "#000000"
-        }
-      },
-      "font": {
-        "family": "-apple-system,\n         BlinkMacSystemFont, \n         \"Segoe UI\", \n         Roboto, \n         Oxygen, \n         Ubuntu, \n         Cantarell, \n         \"Fira Sans\", \n         \"Droid Sans\",  \n         \"Helvetica Neue\", \n         Arial, sans-serif,  \n         \"Apple Color Emoji\", \n         \"Segoe UI Emoji\", \n         \"Segoe UI Symbol\""
-      }
-    },
-    "button": {
-      "extend": [
-        null
-      ]
-    }
-  }
 class SignUpForm extends Component {
     constructor(props) {
         super(props);

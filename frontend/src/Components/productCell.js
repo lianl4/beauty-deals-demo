@@ -16,7 +16,7 @@ class ProductCell extends Component {
     render() {
         return (
             <Anchor
-                href={`http://localhost:3000/product/${this.props.product.id}`}
+                href={`https://beauty-deals.herokuapp.com/product/${this.props.product.id}`}
                 label={this.props.product.name}
                 onClick={
                     () => {

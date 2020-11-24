@@ -34,7 +34,6 @@ class ProductDetail extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.id);
         const product = this.state.product;
         return (
             <Grommet full theme={theme}>
@@ -69,7 +68,6 @@ class ProductDetail extends Component {
 
         );
     }
-
-};
+}
 
 export default ProductDetail;

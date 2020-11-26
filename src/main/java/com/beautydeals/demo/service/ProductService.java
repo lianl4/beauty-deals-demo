@@ -181,6 +181,25 @@ public class ProductService {
         return new PagedResponse<>(productResponses, userFavoriteDealIds.getNumber(), userFavoriteDealIds.getSize(), userFavoriteDealIds.getTotalElements(), userFavoriteDealIds.getTotalPages(), userFavoriteDealIds.isLast());
     }
 
+    // TODO: implement getProductByProductDescription (get all the deals of this product)
+    public ProductResponse getProductByProductDescription(String productDescription, UserPrincipal currentUser) {
+        Product product = productRepository.findByProductDescription(productDescription).orElseThrow(
+                () -> new ResourceNotFoundException("Product", "productDescription", productDescription));
+
+        // TODO: retrieve approval counts
+        // Retrieve Approval Counts of every deal belonging to the current product
+        List<DealApprovalCount> approvals = approvalRepository.countByProductDescriptionGroupByDealId(productDescription);
+
+        Map<Long, Long> dealApprovalsMap = approvals.stream()
+                .collect(Collectors.toMap(DealApprovalCount::getDealId, DealApprovalCount::getApprovalCount));
+
+        // Retrieve product creator details
+        User creator = userRepository.findById(product.getCreatedBy())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", product.getCreatedBy()));
+
+        return ModelMapper.mapProductToProductResponse(product, dealApprovalsMap,
+                creator, null);
+    }
 
     public Product createProduct(ProductRequest productRequest) {
         Product product = new Product();

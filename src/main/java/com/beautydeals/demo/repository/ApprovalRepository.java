@@ -19,6 +19,9 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     @Query("SELECT NEW com.beautydeals.demo.model.DealApprovalCount(v.deal.id, count(v.id)) FROM Approval v WHERE v.product.id = :productId GROUP BY v.deal.id")
     List<DealApprovalCount> countByProductIdGroupByDealId(@Param("productId") Long productId);
 
+    @Query("SELECT NEW com.beautydeals.demo.model.DealApprovalCount(v.deal.id, count(v.id)) FROM Approval v WHERE v.product.productDescription = :productDescription GROUP BY v.deal.id")
+    List<DealApprovalCount> countByProductDescriptionGroupByDealId(@Param("productDescription") String productDescription);
+
     @Query("SELECT v FROM Approval v where v.user.id = :userId and v.product.id in :productIds")
     List<Approval> findByUserIdAndProductIdIn(@Param("userId") Long userId, @Param("productIds") List<Long> productIds);
 

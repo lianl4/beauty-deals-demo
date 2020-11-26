@@ -72,4 +72,12 @@ public class ProductController {
         return productService.castApprovalAndGetUpdatedProduct(productId, approvalRequest, currentUser);
     }
 
+    @PostMapping("/{productId}/favorite")
+    @PreAuthorize("hasRole('USER')")
+    public ProductResponse castFavorite(@CurrentUser UserPrincipal currentUser,
+                         @PathVariable Long productId,
+                         @Valid @RequestBody FavoriteRequest favoriteRequest) {
+        return productService.castFavoriteAndGetUpdatedProduct(productId, favoriteRequest, currentUser);
+    }
+
 }

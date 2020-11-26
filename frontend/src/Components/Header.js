@@ -39,10 +39,6 @@ class Headers extends Component {
             onClick={()=>this.handleMenuClick()}/>
           </Box>
           </Nav>
-          <Box align="center" justify="center">
-            <Anchor label="Upload New Deals" icon={<UploadOption />}
-             onClick={()=> this.props.history.push("/upload") } />  
-          </Box>
         </Header>  
           ];
         }

@@ -11,15 +11,18 @@ class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productDescription: {
-                text: ''
+            
+            productDescription:{
+                text:''
             },
+            
             deals: [{
-                dealDescription: ''
-            }, {
-                dealDescription: ''
-            },{
-                dealDescription: ''
+                dealDescription: '',
+                seller: '',
+                discount: '',
+                discountPrice:'',
+                startDate:'',
+                expireDate:''
             },],
             productLength: {
                 days: 1,
@@ -35,7 +38,7 @@ class Upload extends Component {
         this.handlePollHoursChange = this.handlePollHoursChange.bind(this);
         this.isFormInvalid = this.isFormInvalid.bind(this);
     }
-
+    
     addChoice(event) {
         const deals = this.state.deals.slice();        
         this.setState({
@@ -54,10 +57,18 @@ class Upload extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+       
         const pollData = {
-            productDescription: this.state.productDescription.text,
+            
+            productDescription: this.props.location.data.productDescription,
             deals: this.state.deals.map(choice => {
-                return {dealDescription: choice.dealDescription} 
+                return {dealDescription: choice.dealDescription,
+                        seller: choice.seller,
+                        discount:choice.discount,
+                        discountPrice:choice.discountPrice,
+                        startDate:choice.startDate,
+                        expireDate:choice.expireDate
+                    } 
             }),
             productLength: this.state.productLength
         };
@@ -131,10 +142,16 @@ class Upload extends Component {
 
     handleChoiceChange(event, index) {
         const deals = this.state.deals.slice();
+        const inputName = event.target.name
         const value = event.target.value;
-
         deals[index] = {
-            dealDescription: value,
+            dealDescription: deals[index]['dealDescription'],
+            seller: deals[index]['seller'],
+            discount: deals[index]['discount'],
+            discountPrice: deals[index]['discountPrice'],
+            startDate: deals[index]['startDate'],
+            expireDate: deals[index]['expireDate'],
+            [inputName]:value,
             ...this.validateChoice(value)
         }
 
@@ -159,9 +176,6 @@ class Upload extends Component {
     }
 
     isFormInvalid() {
-        if(this.state.productDescription.validateStatus !== 'success') {
-            return true;
-        }
     
         for(let i = 0; i < this.state.deals.length; i++) {
             const choice = this.state.deals[i];            
@@ -172,29 +186,24 @@ class Upload extends Component {
     }
 
     render() {
+        
         const choiceViews = [];
         this.state.deals.forEach((choice, index) => {
             choiceViews.push(<PollChoice key={index} choice={choice} choiceNumber={index} removeChoice={this.removeChoice} handleChoiceChange={this.handleChoiceChange}/>);
         });
-
+        
         return (
             <div className="new-poll-container">
                 <h1 className="page-title">Upload New Deals!</h1>
                 <div className="new-poll-content">
                     <Form onSubmit={this.handleSubmit} className="create-poll-form">
-                        <FormItem validateStatus={this.state.productDescription.validateStatus}
-                            help={this.state.productDescription.errorMsg} className="poll-form-row">
-                        <h3>Product Description</h3>
-                        <TextArea 
-                            title = "Product Description"
-                            placeholder="Enter your productDescription"
-                            style = {{ fontSize: '16px' }} 
-                            autosize={{ minRows: 3, maxRows: 6 }} 
-                            name = "productDescription"
-                            value = {this.state.productDescription.text}
-                            onChange = {this.handleQuestionChange} />
-                        </FormItem>
+                   
                         {choiceViews}
+                        <FormItem className="poll-form-row">
+                            <Button type="dashed" onClick={this.addChoice} disabled={this.state.deals.length === 10}>
+                                <Icon type="plus" /> Add a choice
+                            </Button>
+                        </FormItem>
                         <FormItem className="poll-form-row">
                             <Col xs={24} sm={6}>
                                 Product length: 
@@ -232,32 +241,6 @@ class Upload extends Component {
                         </FormItem>
                         <FormItem>
              
-             <span style = {{ marginRight: '18px' }}>
-                         <Select 
-                             name="Brand"
-                             showSearch
-                             placeholder="Brand"
-                             style={{ width: 200 }} >
-                             
-                                <Option value="A">A</Option>
-                                <Option value="B">B</Option>
-                                <Option value="C">C</Option>
-                             
-                         </Select>
-                     </span>
-                     <span>
-                         <Select 
-                             name="Category"
-                             showSearch
-                             placeholder="Category"
-                             style={{ width: 200 }} >
-                             
-                                <Option value="A">A</Option>
-                                <Option value="B">B</Option>
-                                <Option value="C">C</Option>
-                             
-                         </Select>
-                     </span>
                     
              </FormItem>
                         <FormItem className="poll-form-row">
@@ -276,14 +259,95 @@ class Upload extends Component {
 
 function PollChoice(props) {
     return (
-        <FormItem validateStatus={props.choice.validateStatus}
-        help={props.choice.errorMsg} className="poll-form-row">
-            <Input 
-                placeholder = {'Deal Description ' + (props.choiceNumber + 1)}
-                size="large"
-                value={props.choice.dealDescription} 
-                className={ props.choiceNumber > 1 ? "optional-choice": null}
-                onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} />
+        <FormItem className="poll-form-row">
+
+            <FormItem className="poll-form-row">
+                        <h4>Deal Description</h4>
+                        <TextArea 
+                            title = "Deal Description"
+                            placeholder="Please enter your deal description"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "dealDescription"
+                            value = {props.choice.dealDescription}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                            />
+
+            </FormItem>
+            <FormItem  className="poll-form-row">
+                        <h4>Seller</h4>
+                        <TextArea 
+                            title = "Seller"
+                            placeholder="Please enter the seller"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "seller"
+                            value = {props.choice.seller}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                           />
+
+            </FormItem>
+            <FormItem  className="poll-form-row">
+                        <h4>Discount</h4>
+                        <TextArea 
+                            title = "Discount"
+                            placeholder="Please enter the discount"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "discount"
+                            value = {props.choice.discount}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                           />
+
+            </FormItem>
+            <FormItem  className="poll-form-row">
+                        <h4>Discount Price</h4>
+                        <TextArea 
+                            title = "Discount Price"
+                            placeholder="Please enter the discount price"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "discountPrice"
+                            value = {props.choice.discountPrice}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                           />
+
+            </FormItem>
+            <FormItem  className="poll-form-row">
+                        <h4>Start Date</h4>
+                        <TextArea 
+                            title = "Start Date"
+                            placeholder="YYYY-MM-DD"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "startDate"
+                            value = {props.choice.startDate}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                           />
+
+            </FormItem>
+            <FormItem  className="poll-form-row">
+                        <h4>Expire Date</h4>
+                        <TextArea 
+                            title = "ExpireDate"
+                            placeholder="YYYY-MM-DD"
+                            style = {{ fontSize: '16px' }} 
+                            autosize={{ minRows: 3, maxRows: 6 }} 
+                            name = "expireDate"
+                            value = {props.choice.expireDate}
+                            onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} 
+                           />
+
+            </FormItem>
+            {
+                props.choiceNumber > 1 ? (
+                <Icon
+                    className="dynamic-delete-button"
+                    type="close"
+                    disabled={props.choiceNumber <= 1}
+                    onClick={() => props.removeChoice(props.choiceNumber)}
+                /> ): null
+            }    
         </FormItem>
     );
 }

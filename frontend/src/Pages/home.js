@@ -24,7 +24,7 @@ class HomePage extends Component {
                       Beauty Deals
                     </Heading>
                   </Box>
-                  <Box align="start" justify="start" direction="row" pad="medium" gap="xsmall" background={{"opacity":"medium","color":"active-text"}}>
+                  <Box align="start" justify="start" direction="row" pad="medium" gap="xsmall" background={{"opacity":"strong","color":"active-text"}}>
                     <Select
                         options={BRANDS}
                         name="Brand"
@@ -37,9 +37,6 @@ class HomePage extends Component {
                         placeholder="Category"
                         onChange={({ option }) =>this.setState({category: option})}
                     />
-                    <TextInput
-                        placeholder="What deals are you looking for?"
-                        size="medium" />
                     <Button
                         label="Search"
                         color="status-warning"

@@ -29,7 +29,6 @@ class HomePage extends Component {
                         options={BRANDS}
                         name="Brand"
                         placeholder="Brand"
-                        
                         onChange={({ option }) => this.setState({brand: option})}
                     />
                     <Select
@@ -38,7 +37,6 @@ class HomePage extends Component {
                         placeholder="Category"
                         onChange={({ option }) =>this.setState({category: option})}
                     />
-                    
                     <Button
                         label="Search"
                         color="status-warning"

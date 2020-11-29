@@ -83,4 +83,12 @@ public class UserController {
         return productService.getProductsApprovaldBy(username, currentUser, page, size);
     }
 
+    @GetMapping("users/{username}/favorites")
+    public PagedResponse<ProductResponse> getDealsFavoritedBy(@PathVariable(value = "username") String username,
+                                                              @CurrentUser UserPrincipal currentUser,
+                                                              @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+                                                              @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+        return productService.getDealsFavoritedBy(username, currentUser, page, size);
+    }
+
 }

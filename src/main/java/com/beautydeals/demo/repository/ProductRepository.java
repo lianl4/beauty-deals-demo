@@ -15,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findById(Long productId);
 
+    Optional<Product> findByProductDescription(String productDescription);
+
     Page<Product> findByCreatedBy(Long userId, Pageable pageable);
 
     long countByCreatedBy(Long userId);

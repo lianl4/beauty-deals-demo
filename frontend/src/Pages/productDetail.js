@@ -98,7 +98,6 @@ class ProductDetail extends Component {
     }
 
     render() {
-       
         const product = this.state.product;
         const deal = this.state.deals;
         return (
@@ -155,7 +154,6 @@ class ProductDetail extends Component {
 
         );
     }
-
-};
+}
 
 export default ProductDetail;

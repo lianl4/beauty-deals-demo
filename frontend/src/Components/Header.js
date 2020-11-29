@@ -39,7 +39,7 @@ class Headers extends Component {
             onClick={()=>this.handleMenuClick()}/>
           </Box>
           </Nav>
-        </Header>  
+        </Header>
           ];
         }
 

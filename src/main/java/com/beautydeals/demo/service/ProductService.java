@@ -4,10 +4,7 @@ import com.beautydeals.demo.exception.BadRequestException;
 import com.beautydeals.demo.exception.ResourceNotFoundException;
 import com.beautydeals.demo.model.*;
 import com.beautydeals.demo.payload.*;
-import com.beautydeals.demo.repository.FavoriteRepository;
-import com.beautydeals.demo.repository.ProductRepository;
-import com.beautydeals.demo.repository.UserRepository;
-import com.beautydeals.demo.repository.ApprovalRepository;
+import com.beautydeals.demo.repository.*;
 import com.beautydeals.demo.security.UserPrincipal;
 import com.beautydeals.demo.util.AppConstants;
 import com.beautydeals.demo.util.ModelMapper;
@@ -23,10 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,6 +29,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private DealRepository dealRepository;
 
     @Autowired
     private ApprovalRepository approvalRepository;
@@ -147,46 +144,63 @@ public class ProductService {
     public PagedResponse<ProductResponse> getDealsFavoritedBy(String username, UserPrincipal currentUser, int page, int size) {
         validatePageNumberAndSize(page, size);
 
+        // 1. get user id from userRepository
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
-        // Retrieve all productIds in which the given username has favorited
+        // 2.1. Retrieve all productIds in which the given username has favorited
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        Page<Long> userFavoriteProductIds = favoriteRepository.findFavoriteProductIdsByUserId(user.getId(), pageable);
+        // 2.2. Retrieve all dealIds in which the given username has favorited
         Page<Long> userFavoriteDealIds = favoriteRepository.findFavoriteDealIdsByUserId(user.getId(), pageable);
 
-        if (userFavoriteDealIds.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), userFavoriteDealIds.getNumber(),
-                    userFavoriteDealIds.getSize(), userFavoriteDealIds.getTotalElements(),
-                    userFavoriteDealIds.getTotalPages(), userFavoriteDealIds.isLast());
+        if (userFavoriteProductIds.getNumberOfElements() == 0) {
+            return new PagedResponse<>(Collections.emptyList(), userFavoriteProductIds.getNumber(),
+                    userFavoriteProductIds.getSize(), userFavoriteProductIds.getTotalElements(),
+                    userFavoriteProductIds.getTotalPages(), userFavoriteProductIds.isLast());
         }
 
-        // Retrieve all product details from the favorited productIds.
-        List<Long> productIds = userFavoriteDealIds.getContent();
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        List<Product> products = productRepository.findByIdIn(productIds, sort);
+        // 3. Retrieve all products and deals details from the favorited productIds and dealIds.
+        List<Long> productIds = userFavoriteProductIds.getContent();
+        Sort sortProducts = Sort.by(Sort.Direction.DESC, "createdAt");
+        List<Product> products = productRepository.findByIdIn(productIds, sortProducts);
+
+        List<Long> dealIds = userFavoriteDealIds.getContent();
+        Sort sortDeals = Sort.by(Sort.Direction.DESC, "productId");
+        List<Deal> deals = dealRepository.findByIdIn(dealIds, sortDeals);
+
+        class Pair {
+            Product product;
+            Deal deal;
+        }
+
+        List<Pair> pairs = new ArrayList<>();
+        int i = 0;
+        for (Product product : products) {
+            Pair pair = new Pair();
+            pair.product = product;
+            pair.deal = deals.get(i);
+            pairs.add(pair);
+            i++;
+        }
 
         // Map Products to ProductResponses containing approval counts and product creator details
         Map<Long, Long> dealApprovalCountMap = getDealApprovalCountMap(productIds);
         Map<Long, Long> productUserApprovalMap = getProductUserApprovalMap(currentUser, productIds);
         Map<Long, User> creatorMap = getProductCreatorMap(products);
 
-        List<ProductResponse> productResponses = products.stream().map(product -> {
-            return ModelMapper.mapProductToProductResponse(product,
-                    dealApprovalCountMap,
-                    creatorMap.get(product.getCreatedBy()),
-                    productUserApprovalMap == null ? null : productUserApprovalMap.getOrDefault(product.getId(), null));
-        }).collect(Collectors.toList());
+        List<ProductResponse> productResponses = pairs.stream().map(favorite -> ModelMapper.mapProductToProductFavoritedDealsResponse(favorite.product, favorite.deal,
+                dealApprovalCountMap,
+                creatorMap.get(favorite.product.getCreatedBy()),
+                productUserApprovalMap  == null ? null : productUserApprovalMap.getOrDefault(favorite.product.getId(), null))).collect(Collectors.toList());
 
-        // TODO: change the code so that only favorite deals will return.
-        return new PagedResponse<>(productResponses, userFavoriteDealIds.getNumber(), userFavoriteDealIds.getSize(), userFavoriteDealIds.getTotalElements(), userFavoriteDealIds.getTotalPages(), userFavoriteDealIds.isLast());
+        return new PagedResponse<>(productResponses, userFavoriteProductIds.getNumber(), userFavoriteProductIds.getSize(), userFavoriteProductIds.getTotalElements(), userFavoriteProductIds.getTotalPages(), userFavoriteProductIds.isLast());
     }
 
-    // TODO: implement getProductByProductDescription (get all the deals of this product)
     public ProductResponse getProductByProductDescription(String productDescription, UserPrincipal currentUser) {
         Product product = productRepository.findByProductDescription(productDescription).orElseThrow(
                 () -> new ResourceNotFoundException("Product", "productDescription", productDescription));
 
-        // TODO: retrieve approval counts
         // Retrieve Approval Counts of every deal belonging to the current product
         List<DealApprovalCount> approvals = approvalRepository.countByProductDescriptionGroupByDealId(productDescription);
 
@@ -205,8 +219,15 @@ public class ProductService {
         Product product = new Product();
         product.setProductDescription(productRequest.getProductDescription());
 
+        String productDescription = productRequest.getProductDescription();
+        if (productRepository.findByProductDescription(productDescription).isPresent()) {
+            product = productRepository.findByProductDescription(productDescription).orElseThrow(
+                    () -> new ResourceNotFoundException("Product", "productDescription", productDescription));
+        }
+
+        Product finalProduct = product;
         productRequest.getDeals().forEach(dealRequest -> {
-            product.addDeal(new Deal(dealRequest.getDealDescription(), dealRequest.getDiscount(), dealRequest.getDiscountPrice(), dealRequest.getSeller(), dealRequest.getStartDate(), dealRequest.getExpireDate()));
+            finalProduct.addDeal(new Deal(dealRequest.getDealDescription(), dealRequest.getDiscount(), dealRequest.getDiscountPrice(), dealRequest.getSeller(), dealRequest.getStartDate(), dealRequest.getExpireDate()));
         });
 
         Instant now = Instant.now();
@@ -215,12 +236,7 @@ public class ProductService {
 
         product.setExpirationDateTime(expirationDateTime);
 
-        return productRepository.save(product);
-    }
-
-    // TODO(not urgent): implement the "add new deal to an existing product feature"
-    public Product addDealToProduct(ProductRequest productRequest) {
-        return new Product();
+        return productRepository.save(finalProduct);
     }
 
     public ProductResponse getProductById(Long productId, UserPrincipal currentUser) {
@@ -319,7 +335,6 @@ public class ProductService {
         //-- Favorite Saved, Return the updated Product Response now --
 
         // Retrieve Favorite Counts of every deal belonging to the current product
-        // TODO: change the code below to only return the success status
         List<DealApprovalCount> approvals = approvalRepository.countByProductIdGroupByDealId(productId);
 
         Map<Long, Long> dealApprovalsMap = approvals.stream()

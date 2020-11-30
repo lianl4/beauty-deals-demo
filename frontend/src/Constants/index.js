@@ -1,13 +1,14 @@
 export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://beauty-deals.herokuapp.com/api';
+const MAKEUP_API_BASE_URL = "https://makeup-api.herokuapp.com/api/v1/products.json";
 export const MAKEUP_API_URL = ( brand, category ) => {
     if (brand === undefined && category !== undefined)
-        return `https://makeup-api.herokuapp.com/api/v1/products.json?product_type=${category}`;
+        return `${MAKEUP_API_BASE_URL}?product_type=${category}`;
     if (category === undefined && brand !== undefined)
-        return `https://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`;
+        return `${MAKEUP_API_BASE_URL}?brand=${brand}`;
     else if (brand === undefined && category === undefined)
-        return `https://makeup-api.herokuapp.com/api/v1/products.json`;
+        return MAKEUP_API_BASE_URL;
     else
-        return `https://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}&product_type=${category}`;
+        return `${MAKEUP_API_BASE_URL}?brand=${brand}&product_type=${category}`;
 }
 export const MAKEUP_API_BY_ID_URL = ( id ) => {
     return `https://makeup-api.herokuapp.com/api/v1/products/${id}.json`;
@@ -32,6 +33,7 @@ export const PASSWORD_MAX_LENGTH = 20;
 
 export const BRANDS = [
     "covergirl",
+    "dior",
     "nyx",
     "revlon",
 ];

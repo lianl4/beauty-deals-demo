@@ -13,10 +13,9 @@ import {
     Text,
     DataTable
 } from "grommet";
-import { Favorite, ShareOption,UploadOption} from 'grommet-icons'
-import {getProductById,getDeals} from "../util/API";
+import { Favorite, UploadOption} from 'grommet-icons'
+import {getProductById, getDeals} from "../util/API";
 import { theme } from "../Constants";
-import Upload from "../Components/uploadForm"
 
 const columns = [
     
@@ -89,7 +88,7 @@ class ProductDetail extends Component {
                 });
             });
         
-        getDeals().then(response => {
+        getDeals(id).then(response => {
             this.setState({
                 deals: response.data,
             });

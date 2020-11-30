@@ -64,7 +64,6 @@ public class ProductController {
         return productService.getProductById(productId, currentUser);
     }
 
-    // TODO: implement getProductByProductDescription (get all the deals of this product)
     @GetMapping("/descriptions/{productDescription}")
     public ProductResponse getProductByProductDescription(@CurrentUser UserPrincipal currentUser,
                                                           @PathVariable String productDescription) {

@@ -219,8 +219,15 @@ public class ProductService {
         Product product = new Product();
         product.setProductDescription(productRequest.getProductDescription());
 
+        String productDescription = productRequest.getProductDescription();
+        if (productRepository.findByProductDescription(productDescription).isPresent()) {
+            product = productRepository.findByProductDescription(productDescription).orElseThrow(
+                    () -> new ResourceNotFoundException("Product", "productDescription", productDescription));
+        }
+
+        Product finalProduct = product;
         productRequest.getDeals().forEach(dealRequest -> {
-            product.addDeal(new Deal(dealRequest.getDealDescription(), dealRequest.getDiscount(), dealRequest.getDiscountPrice(), dealRequest.getSeller(), dealRequest.getStartDate(), dealRequest.getExpireDate()));
+            finalProduct.addDeal(new Deal(dealRequest.getDealDescription(), dealRequest.getDiscount(), dealRequest.getDiscountPrice(), dealRequest.getSeller(), dealRequest.getStartDate(), dealRequest.getExpireDate()));
         });
 
         Instant now = Instant.now();
@@ -229,12 +236,7 @@ public class ProductService {
 
         product.setExpirationDateTime(expirationDateTime);
 
-        return productRepository.save(product);
-    }
-
-    // TODO(not urgent): implement the "add new deal to an existing product feature"
-    public Product addDealToProduct(ProductRequest productRequest) {
-        return new Product();
+        return productRepository.save(finalProduct);
     }
 
     public ProductResponse getProductById(Long productId, UserPrincipal currentUser) {
@@ -333,7 +335,6 @@ public class ProductService {
         //-- Favorite Saved, Return the updated Product Response now --
 
         // Retrieve Favorite Counts of every deal belonging to the current product
-        // TODO: change the code below to only return the success status
         List<DealApprovalCount> approvals = approvalRepository.countByProductIdGroupByDealId(productId);
 
         Map<Long, Long> dealApprovalsMap = approvals.stream()

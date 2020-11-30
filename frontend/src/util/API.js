@@ -80,6 +80,6 @@ export function getProductById(id) {
     return axios.get(MAKEUP_API_BY_ID_URL(id));
 }
 
-export function getDeals() {
-    return axios.get(API_BASE_URL + "/products/241");
+export function getDeals(id) {
+    return axios.get(API_BASE_URL + "/products/descriptions/" + id);
 }

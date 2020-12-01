@@ -83,3 +83,13 @@ export function getProductById(id) {
 export function getDeals(id) {
     return axios.get(API_BASE_URL + "/products/descriptions/" + id);
 }
+export function getFavorite(userId){
+    return axios.get(API_BASE_URL + "/users/"+userId+"/favorites" );  
+}
+export function addFavorite(data,id){
+    return request({
+        url: API_BASE_URL + "/products/"+id+"/favorite",
+        method: 'POST',
+        body: JSON.stringify(data)         
+    });
+}

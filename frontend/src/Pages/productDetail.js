@@ -16,58 +16,8 @@ import {
 import { Favorite, UploadOption} from 'grommet-icons'
 import {getProductById, getDeals} from "../util/API";
 import { theme } from "../Constants";
+import AddFavorite from "../Components/addFavorite";
 
-const columns = [
-    
-    {
-        property: 'dealDescription',
-        header: <Text>Deal Description</Text>,
-        render: data => (
-            <Text size="medium">{data.dealDescription}
-            </Text>
-        )
-    },
-    {
-        property: 'seller',
-        header: <Text>Seller</Text>,
-        render: data => (
-            <Text size="medium">{data.seller}
-            </Text>
-        )
-    },
-    {
-        property: 'discountPrice',
-        header: <Text>Discount Price</Text>,
-        render: data => (
-            <Text size="medium">{data.discountPrice}
-            </Text>
-        )
-    },
-    {
-        property: 'discount',
-        header: <Text>Discount</Text>,
-        render: data => (
-            <Text size="medium">{data.discount}
-            </Text>
-        )
-    },
-    {
-        property: 'startDate',
-        header: <Text>Start Date</Text>,
-        render: data => (
-            <Text size="medium">{data.startDate}
-            </Text>
-        )
-    },
-    {
-        property: 'expireDate',
-        header: <Text>Expire Date</Text>,
-        render: data => (
-            <Text size="medium">{data.expireDate}
-            </Text>
-        )
-    },
-];
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -77,10 +27,10 @@ class ProductDetail extends Component {
             deals: [],
         };
     }
-
+    
     componentDidMount() {
         const id = this.props.match.params.id;
-        
+        console.log(id);
         getProductById(id)
             .then(response => {
                 this.setState({
@@ -99,13 +49,77 @@ class ProductDetail extends Component {
     render() {
         const product = this.state.product;
         const deal = this.state.deals;
-        return (
+        const columns = [
+    
+            {
+                property: 'dealDescription',
+                header: <Text>Deal Description</Text>,
+                render: data => (
+                    <Text size="medium">{data.dealDescription}
+                    </Text>
+                )
+            },
+            {
+                property: 'seller',
+                header: <Text>Seller</Text>,
+                render: data => (
+                    <Text size="medium">{data.seller}
+                    </Text>
+                )
+            },
+            {
+                property: 'discountPrice',
+                header: <Text>Discount Price</Text>,
+                render: data => (
+                    <Text size="medium">{data.discountPrice}
+                    </Text>
+                )
+            },
+            {
+                property: 'discount',
+                header: <Text>Discount</Text>,
+                render: data => (
+                    <Text size="medium">{data.discount}
+                    </Text>
+                )
+            },
+            {
+                property: 'startDate',
+                header: <Text>Start Date</Text>,
+                render: data => (
+                    <Text size="medium">{data.startDate}
+                    </Text>
+                )
+            },
+            {
+                property: 'expireDate',
+                header: <Text>Expire Date</Text>,
+                render: data => (
+                    <Text size="medium">{data.expireDate}
+                    </Text>
+                )
+            },
+            
+            {
+                property: 'id',
+                header: <Text>Favorite</Text>,
+                render: 
+                   data => (
+                    <AddFavorite dealId = {data} productId={this.state.deals}/>
+                
+                )
+            },
+            
+            
+        ];
+
+        return (deal.deals) ? (
             <Grommet full theme={theme}>
                 <Main fill="vertical" flex="grow" overflow="auto">
                     <Box align="center" justify="start" pad="xlarge" height="large">
                         <Card>
                             <CardHeader pad="medium">Product Description {this.props.match.params.id}</CardHeader>
-                            <CardBody pad="medium" direction="column" justify="center" align="stretch" gap="large">
+                            <CardBody pad="medium" direction="column" justify="center" align="stretch" gap="large" overflow = "scroll">
                             <Box align="center" justify="start" direction="row" height="large" gap = "large">
                                 <Image src={product.image_link} />
                                 <List
@@ -119,11 +133,16 @@ class ProductDetail extends Component {
                                     ]}
                                 />
                             </Box>
+                        <Box pad = "medium">
+
+                        </Box>
                          <Box align="center" justify="start" height="large">
                         
                         <DataTable
                             columns={columns}
                             data={deal.deals}
+                            
+                            
                             align='center'
                         >
                             
@@ -151,7 +170,50 @@ class ProductDetail extends Component {
                 </Main>
             </Grommet>
 
-        );
+        ):(<Grommet full theme={theme}>
+            <Main fill="vertical" flex="grow" overflow="auto">
+                <Box align="center" justify="start" pad="xlarge" height="large">
+                    <Card>
+                        <CardHeader pad="medium">Product Description {this.props.match.params.id}</CardHeader>
+                        <CardBody pad="medium" direction="column" justify="center" align="stretch" gap="large" overflow = "scroll">
+                        <Box align="center" justify="start" direction="row" height="large" gap = "large">
+                            <Image src={product.image_link} />
+                            <List
+                                primaryKey="attribute"
+                                secondaryKey="value"
+                                data={[
+                                    { attribute: 'Name', value: product.name },
+                                    { attribute: 'Brand', value: product.brand },
+                                    { attribute: 'Category', value: product.product_type },
+                                    { attribute: 'Suggest Price', value: "$" + product.price },
+                                ]}
+                            />
+                        </Box>
+                    <Box pad = "medium" align = "center">
+                                No related deals!
+                    </Box>
+               
+                        </CardBody>
+                        <CardFooter pad={{horizontal: "small"}} background="light-2">
+                            <Button
+                                icon={<Favorite color="red" />}
+                                hoverIndicator
+                            />
+                            <Button icon={<UploadOption color="plain" />} hoverIndicator
+                            
+                            onClick={(props)=>{ 
+                            
+                                this.props.history.push({
+                                    pathname: `/upload`,
+                                    data: {
+                                        productDescription: this.props.match.params.id,
+                                    }
+                                })} } />
+                        </CardFooter>
+                    </Card>
+                </Box>
+            </Main>
+        </Grommet>)
     }
 }
 

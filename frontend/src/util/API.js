@@ -93,3 +93,10 @@ export function addFavorite(data,id){
         body: JSON.stringify(data)         
     });
 }
+export function addApproval(data,productId){
+    return request({
+        url: API_BASE_URL + "/products/"+productId+"/approvals",
+        method: 'POST',
+        body: JSON.stringify(data)         
+    });
+}

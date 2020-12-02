@@ -17,6 +17,7 @@ import { Favorite, UploadOption} from 'grommet-icons'
 import {getProductById, getDeals} from "../util/API";
 import { theme } from "../Constants";
 import AddFavorite from "../Components/addFavorite";
+import AddApproval from "../Components/addApproval";
 
 
 class ProductDetail extends Component {
@@ -30,7 +31,6 @@ class ProductDetail extends Component {
     
     componentDidMount() {
         const id = this.props.match.params.id;
-        console.log(id);
         getProductById(id)
             .then(response => {
                 this.setState({
@@ -109,7 +109,15 @@ class ProductDetail extends Component {
                 
                 )
             },
-            
+            {
+                property: 'id',
+                header: <Text>Approve</Text>,
+                render: 
+                   data => (
+                    <AddApproval dealId = {data} productId={this.state.deals}/>
+                
+                )
+            },  
             
         ];
 

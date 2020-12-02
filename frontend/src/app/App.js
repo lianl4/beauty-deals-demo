@@ -12,7 +12,7 @@ import Headers from '../Components/Header';
 import HomePage from "../Pages/home";
 import SearchResult from '../Pages/searchResult';
 import ProductDetail from "../Pages/productDetail";
-import Favorite from '../Pages/favorite';
+import Favorites from '../Pages/favorite';
 import { getCurrentUser } from '../util/API';
 import { ACCESS_TOKEN } from '../Constants';
 import { notification } from 'antd';
@@ -56,7 +56,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     this.loadCurrentUser();
+    
   }
 
   handleLogout(redirectTo="/", notificationType="success", description="You're successfully logged out.") {
@@ -85,6 +87,7 @@ class App extends Component {
   }
 
   render() {
+    
     return (
           <Grommet full theme={theme}>
             <Headers currentUser={this.state.currentUser} 
@@ -96,7 +99,9 @@ class App extends Component {
                   render={(props) => <HomePage
                       currentUser={this.state.currentUser} {...props} />}></Route>
                   <Route path="/search-result" component={SearchResult}></Route>
-                  <Route path="/favorite" component={Favorite}></Route>
+                  <Route path="/favorite" 
+                  render={(props) => <Favorites
+                      currentUser={this.state.currentUser} {...props} />}></Route>
                   <Route path="/signup" component={SignUpForm}></Route>
                   <Route path="/login"
                          render={(props) => <Signin onLogin={this.handleLogin} {...props} />}

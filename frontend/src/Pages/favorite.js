@@ -77,54 +77,6 @@ function AddData(props){
 
   )
 }
-function AddProduct(props){
-  const columns = [
-  /*{
-      property: 'name',
-      header: <Text>Name</Text>,
-      primary: true,
-      render: data => (
-          <ProductCell
-              product={data}
-          />
-      )
-  },*/
-  {
-    property: 'name',
-    header: <Text>Product</Text>,
-    render: data => (
-      <Text size="medium">{data}
-      </Text>
-    ),
-    size: "medium",
-},
-    
-  ];
-  return(
-
-    <DataTable
-          columns={columns}
-          data={props.productName}
-          gap = "large"
-      >
-    </DataTable>
-
-  )
-}
-function loadingProduct(data){
-  const productName = ["lalala"];
-  data.forEach(
-  deal=>{
-        getProductById(deal.productDescription)
-          .then(response => {
-            // productName.push(response.data.name)
-            productName.push((response.data.name).toString())
-      })
-     
-    });
-
-  return productName;
-}
 class Favorites extends Component {
     constructor(props) {
         super(props);
@@ -136,15 +88,17 @@ class Favorites extends Component {
 
     componentDidMount() {
         const userId = this.props.currentUser.username;
-       //  const data = this.state.products.content;
+       let productName = [];
         getFavorite(userId)
             .then(response => {
                 this.setState({
                     products: response.data,
-                });
+                })
+               
+                
+                
         });
-
-        
+  
     }
     render() {
       if(this.state.products.content){
@@ -154,11 +108,6 @@ class Favorites extends Component {
         deal=>{datas.push(deal.deals[0])
       
           })
-      
-      console.log(loadingProduct(data).length)
-
-      // loadingProduct(data).forEach(n=>console.log(n));
-      /// console.log(datas[0])
         return (
             <Grommet full theme={theme}>
                 <Main fill="vertical" flex="grow" overflow="auto">
@@ -169,7 +118,7 @@ class Favorites extends Component {
                    <CardBody pad="medium" direction="column" align="stretch" gap="large" overflow = "scroll">
                    <Box align="center" justify="start" height="large" direction = "row">
                    
-                    <AddProduct productName = {loadingProduct(data)}/>
+                    <AddData datas = {datas}/>
                   
                     </Box>
                     </CardBody>

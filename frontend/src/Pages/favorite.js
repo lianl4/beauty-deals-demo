@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
     DataTable,
     Text,
-    Image,
     Box,
     Grommet,
     Main,
@@ -10,8 +9,7 @@ import {
     CardBody,
     CardHeader
   } from "grommet";
-import {getFavorite,getProductById} from "../util/API";
-import ProductCell from "../Components/productCell";
+import { getFavorite } from "../util/API";
 import { theme } from "../Constants";
 
 function AddData(props){
@@ -94,9 +92,6 @@ class Favorites extends Component {
                 this.setState({
                     products: response.data,
                 })
-               
-                
-                
         });
   
     }
@@ -113,13 +108,12 @@ class Favorites extends Component {
                 <Main fill="vertical" flex="grow" overflow="auto">
                 <Box align="center" justify="start" pad="xlarge" height="large">
                 <Card>
-                            <CardHeader pad="medium" align = 'center' justify="center" background="light-2">
-                              <h2>Favorite Deals</h2></CardHeader>
-                   <CardBody pad="medium" direction="column" align="stretch" gap="large" overflow = "scroll">
-                   <Box align="center" justify="start" height="large" direction = "row">
-                   
-                    <AddData datas = {datas}/>
-                  
+                    <CardHeader pad="medium" align = 'center' justify="center" background="light-2">
+                              <h2>Favorite Deals</h2>
+                    </CardHeader>
+                    <CardBody pad="medium" direction="column" align="stretch" gap="large" overflow = "scroll">
+                    <Box align="center" justify="start" height="large" direction = "row">
+                        <AddData datas = {datas}/>
                     </Box>
                     </CardBody>
                     </Card>

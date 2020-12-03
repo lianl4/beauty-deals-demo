@@ -164,8 +164,7 @@ class ProductDetail extends Component {
                                 />
                                 <Button icon={<UploadOption color="plain" />} hoverIndicator
                                 
-                                onClick={(props)=>{ 
-                                
+                                onClick={(props)=>{
                                     this.props.history.push({
                                         pathname: `/upload`,
                                         data: {

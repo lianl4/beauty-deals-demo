@@ -56,9 +56,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
     this.loadCurrentUser();
-    
   }
 
   handleLogout(redirectTo="/", notificationType="success", description="You're successfully logged out.") {
@@ -93,7 +91,6 @@ class App extends Component {
             <Headers currentUser={this.state.currentUser} 
               onLogout={this.handleLogout}/>
             <Box>
-              
                 <Switch>
                   <Route exact path="/"  
                   render={(props) => <HomePage
@@ -110,7 +107,6 @@ class App extends Component {
                   <Route exact path="/product" component={ProductDetail} />
                   <Route exact path="/product/:id" component={ProductDetail} />
                 </Switch>
-              
             </Box>
           </Grommet>
     );

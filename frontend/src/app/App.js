@@ -95,7 +95,7 @@ class App extends Component {
                   <Route exact path="/"  
                   render={(props) => <HomePage
                       currentUser={this.state.currentUser} {...props} />}></Route>
-                  <Route path="/search-result" component={SearchResult}></Route>
+                  <Route path="/brand::brand:category::category" component={SearchResult}></Route>
                   <Route path="/favorite" 
                   render={(props) => <Favorites
                       currentUser={this.state.currentUser} {...props} />}></Route>

@@ -60,9 +60,9 @@ class SearchResult extends Component {
     }
 
     componentDidMount() {
-        const brand = this.props.location.data.brand;
-        const category = this.props.location.data.category;
-        getSearchResult(brand, category)
+        const newBrand = this.props.location.pathname.split(":")[1];
+        const newCategory = this.props.location.pathname.split(":")[3];
+        getSearchResult(newBrand, newCategory)
             .then(response => {
                 this.setState({
                     products: response.data,

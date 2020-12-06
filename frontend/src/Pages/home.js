@@ -45,7 +45,7 @@ class HomePage extends Component {
                                 onClick={
                                     ()=> {
                                         this.props.history.push({
-                                            pathname: "/search-result",
+                                            pathname: `/brand:${this.state.brand}:category:${this.state.category}`,
                                             data: {
                                                 brand: this.state.brand,
                                                 category: this.state.category,

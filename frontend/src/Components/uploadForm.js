@@ -80,7 +80,7 @@ class Upload extends Component {
                     message: 'Beauty Deals',
                     description: "Thank you! You have successfully uploaded",
                 });
-                this.props.history.push("/");
+                this.props.history.push(`/product/${this.props.location.data.productDescription}`);
             }).catch(error => {
             if(error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create poll.');
